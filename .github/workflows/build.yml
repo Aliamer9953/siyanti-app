@@ -23,14 +23,24 @@ jobs:
       with:
         channel: 'stable'
 
-    - name: Install dependencies
-      run: flutter pub get
+    - name: Setup Flutter App Structure
+      run: |
+        mkdir -p temp_lib
+        mv *.dart temp_lib/ 2>/dev/null || true
+        flutter create . --org com.siyanti.app --project-name siyanti --force
+        rm -rf lib/*
+        cp -r temp_lib/* lib/
+        cp temp_lib/main.dart lib/main.dart
+
+    - name: Update pubspec dependencies
+      run: |
+        flutter pub add firebase_core firebase_auth cloud_firestore cupertino_icons
 
     - name: Build APK
-      run: flutter build apk --debug
+      run: flutter build apk --debug --no-tree-shake-icons
 
-    - name: Upload APK
+    - name: Upload APK Artifact
       uses: actions/upload-artifact@v3
       with:
-        name: app-debug
+        name: siyanti-app-debug
         path: build/app/outputs/flutter-apk/app-debug.apk
