@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'phone_auth_screen.dart'; // تأكد أن اسم ملف شاشة الهاتف مطابق لديك
+import 'phone_auth_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -11,7 +11,7 @@ void main() async {
 class SiyantiApp extends StatelessWidget {
   const SiyantiApp({super.key});
 
-  @root
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'صيانتي',
